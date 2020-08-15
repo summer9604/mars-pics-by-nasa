@@ -1,9 +1,24 @@
+<div class="row mars-component">
 
+    <div class="input-group mb-3">
+        <h2 style="color: white;">Page {{ currentPage }} out of {{ numOfPages }}</h2>
+    </div>
 
-<div class="row margin-component">
-    <div *ngFor="let pic of pics" class="col-2 pic-padding">
+    <nav class="input-group justify-content-center">
+        <ul class="pagination">
+            <li class="page-item"><a type="submit" class="page-link" (click)="previousPage()">Previous Page</a></li>
+            <li class="page-item"><a type="submit" class="page-link" (click)="nextPage()">Next Page</a></li>
+            <li>
+                <select id="pageList" (click)="changePageManually()" class="form-control-sm p-20">
+                    <option *ngFor="let numPage of generatePageList()" value="{{ numPage }}">{{ numPage }}</option>
+                </select>
+            </li>
+        </ul>
+    </nav>
+
+    <div *ngFor="let pic of currentPics" class="col-2 pic-padding">
         <div class="container">
-            <img class="img-style" src="{{ pic['img_src'] }}" (mouseover)="cenas(pic)">
+            <img class="img-style" src="{{ pic['img_src'] }}">
             <div class="overlay">
                 <div class="text">
                     <h5>{{ pic["camera"]["name"] }}</h5>
@@ -14,6 +29,3 @@
         </div>
     </div>
 </div>
-
-
-

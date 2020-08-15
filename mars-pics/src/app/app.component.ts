@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mars-pics';
+  title = 'Pictures from Mars by Nasa';
 }
