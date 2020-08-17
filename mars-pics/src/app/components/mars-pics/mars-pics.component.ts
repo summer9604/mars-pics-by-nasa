@@ -9,29 +9,28 @@ import { MarsApiService } from 'src/app/services/mars-api.service';
 export class MarsPicsComponent implements OnInit {
 
   private picsCollection: any[] = [];
-  private picsPerPage: number = 25;
-  private firstPicPerPageIndex : number;
-  private lastPicImageIndex : number;
-  currentPics : any[];
-  selectedPage : HTMLElement;
+  private picsPerPage: number = 24;
+  private firstPicPerPageIndex = 0
+  private lastPicIPerPageIndex = this.picsPerPage;
+  currentPics: any[];
+  selectedPage: HTMLElement;
   currentPage = 1;
   numOfPages: number;
 
   constructor(private marsApiService: MarsApiService) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.getMarsPics();
+    this.selectedPage = document.getElementById("pageList");
   }
 
   getMarsPics() {
-    this.marsApiService.getMarsPics().subscribe(data => {   
-      this.picsCollection = data["photos"];
-      this.numOfPages = Math.ceil(this.picsCollection.length / this.picsPerPage);
-      this.firstPicPerPageIndex = 0;
-      this.lastPicImageIndex = 24;
-      this.currentPics = this.picsCollection.slice(this.firstPicPerPageIndex, this.lastPicImageIndex);
-      this.selectedPage = document.getElementById("pageList");
-    });
+    this.marsApiService.getMarsPics()
+      .subscribe(data => {
+        this.picsCollection = data["photos"];
+        this.numOfPages = Math.ceil(this.picsCollection.length / this.picsPerPage);
+        this.currentPics = this.picsCollection.slice(this.firstPicPerPageIndex, this.lastPicIPerPageIndex);
+      });
   }
 
   nextPage() {
@@ -56,9 +55,9 @@ export class MarsPicsComponent implements OnInit {
 
     this.firstPicPerPageIndex = (this.currentPage - 1) * this.picsPerPage;
 
-    this.lastPicImageIndex = this.firstPicPerPageIndex + (this.picsPerPage - 1);
+    this.lastPicIPerPageIndex = this.firstPicPerPageIndex + this.picsPerPage;
 
-    this.currentPics = this.picsCollection.slice(this.firstPicPerPageIndex, this.lastPicImageIndex);
+    this.currentPics = this.picsCollection.slice(this.firstPicPerPageIndex, this.lastPicIPerPageIndex);
 
     this.selectedPage["value"] = this.currentPage;
   }
@@ -66,15 +65,15 @@ export class MarsPicsComponent implements OnInit {
   generatePageList() {
 
     var pageNums: number[] = [];
-  
-    for(var i = 0; i < this.numOfPages; i++) {
+
+    for (var i = 0; i < this.numOfPages; i++) {
       pageNums.push(i + 1);
     }
 
     return pageNums;
   }
 
-  changePageManually(){
+  changePageManually() {
 
     if (this.currentPage == this.selectedPage["value"]) return;
 
@@ -82,4 +81,5 @@ export class MarsPicsComponent implements OnInit {
 
     this.changePage();
   }
+
 }
