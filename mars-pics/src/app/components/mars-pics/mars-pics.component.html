@@ -1,7 +1,15 @@
 <div class="row mars-component">
 
-    <div class="input-group mb-3 mars-component">
-        <h2 class="page-counter-style">Page {{ currentPage }} out of {{ numOfPages }}</h2>
+    <div class="input-group mb-3 mars-component dynamic-rover-div">
+        <h2 class="white-style">Page {{ currentPage }} out of {{ numOfPages }}</h2>
+        <div>
+            <h4 class="white-style">Rover:</h4>
+            <select id="rover" (click)="changeRover()">
+                <option value="curiosity">Curiosity</option>
+                <option value="opportunity">Opportunity</option>
+                <option value="spirit">Spirit</option>
+            </select>
+        </div>
     </div>
 
     <nav class="input-group justify-content-center">
@@ -21,9 +29,9 @@
             <img class="img-style" src="{{ pic['img_src'] }}">
             <div class="overlay">
                 <div class="text">
-                    <h5>{{ pic["camera"]["name"] }}</h5>
-                    <h5>{{ pic["camera"]["full_name"] }}</h5>
-                    <h5>{{ pic["rover"]["landing_date"] }}</h5>
+                    <h6>{{ pic["camera"]["name"] }}</h6>
+                    <h6>{{ pic["camera"]["full_name"] }}</h6>
+                    <h6>{{ pic["rover"]["landing_date"] }}</h6>
                 </div>
             </div>
         </div>

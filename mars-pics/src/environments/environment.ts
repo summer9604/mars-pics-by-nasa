@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=CFXBgd0aZFILdRLmDhop6haMhoFfMzH5F2XF0muX"
+  curiosityUrl: "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=CFXBgd0aZFILdRLmDhop6haMhoFfMzH5F2XF0muX",
+  opportunityUrl: "https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&api_key=CFXBgd0aZFILdRLmDhop6haMhoFfMzH5F2XF0muX",
+  spiritUrl: "https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?sol=1000&api_key=CFXBgd0aZFILdRLmDhop6haMhoFfMzH5F2XF0muX",
 };
 
 /*

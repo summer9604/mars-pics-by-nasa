@@ -9,7 +9,22 @@ export class MarsApiService {
 
   constructor(private http : HttpClient) { }
 
-    getMarsPics() {
-      return this.http.get<any>(environment.baseUrl);
+    getMarsPics(rover) {
+
+      switch(rover) {
+
+        case "spirit":
+
+          return this.http.get<any>(environment.spiritUrl);
+
+        case "opportunity":
+
+          return this.http.get<any>(environment.opportunityUrl);
+
+        default:
+
+          return this.http.get<any>(environment.curiosityUrl);
+      }
     }
+
 }

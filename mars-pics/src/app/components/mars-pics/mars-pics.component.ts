@@ -10,27 +10,45 @@ export class MarsPicsComponent implements OnInit {
 
   private picsCollection: any[] = [];
   private picsPerPage: number = 24;
-  private firstPicPerPageIndex = 0
-  private lastPicIPerPageIndex = this.picsPerPage;
+  private firstPicPerPageIndex : number;
+  private lastPicIPerPageIndex : number;
+  private currentRover = "curiosity";
   currentPics: any[];
   selectedPage: HTMLElement;
-  currentPage = 1;
-  numOfPages: number;
+  currentPage : number;
+  numOfPages : number;
 
   constructor(private marsApiService: MarsApiService) { }
 
   ngOnInit(): void {
-    this.getMarsPics();
+    this.getMarsPics(this.currentRover);
     this.selectedPage = document.getElementById("pageList");
   }
 
-  getMarsPics() {
-    this.marsApiService.getMarsPics()
+  getMarsPics(rover) {
+    this.marsApiService.getMarsPics(rover)
       .subscribe(data => {
-        this.picsCollection = data["photos"];
-        this.numOfPages = Math.ceil(this.picsCollection.length / this.picsPerPage);
-        this.currentPics = this.picsCollection.slice(this.firstPicPerPageIndex, this.lastPicIPerPageIndex);
+        this.resetPagination();
+        this.resetPicCollection(data);
       });
+  }
+
+  private resetPagination() {
+
+    this.currentPage = 1;
+    
+    this.firstPicPerPageIndex = 0
+    
+    this.lastPicIPerPageIndex = this.picsPerPage;
+  }
+
+  private resetPicCollection(data) {
+
+    this.picsCollection = data["photos"];
+        
+    this.numOfPages = Math.ceil(this.picsCollection.length / this.picsPerPage);
+        
+    this.currentPics = this.picsCollection.slice(this.firstPicPerPageIndex, this.lastPicIPerPageIndex);
   }
 
   nextPage() {
@@ -80,6 +98,17 @@ export class MarsPicsComponent implements OnInit {
     this.currentPage = this.selectedPage["value"];
 
     this.changePage();
+  }
+
+  changeRover() {
+
+    var selectedRover = document.getElementById("rover")["value"];
+
+    if (selectedRover == this.currentRover) return;
+
+    this.currentRover = selectedRover;
+
+    this.getMarsPics(this.currentRover);
   }
 
 }
